@@ -4,6 +4,7 @@ class Lava {
 	function __construct($db, $table) {
 		$this->db = $db;
 		$this->table = $table;
+		$this->debug = false;
 	}
 
 	function _escape(&$fields) {
@@ -43,6 +44,10 @@ class Lava {
 	}
 
 	function execute($query) {
+		if($this->debug == true) {
+			echo "lava: $query\n";
+		}
+
 		$t = $this->db->prepare($query);
 		$t->execute();
 		return $t->fetchAll(PDO::FETCH_ASSOC);
